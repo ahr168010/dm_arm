@@ -53,10 +53,43 @@ filename="package://dm_robotarm_description/meshes/base_link.STL" />
 
 settings.json 配置是为了帮助 VSCode 定位到正确的包路径。当 URDF 文件引用 package://dm_robotarm_description/meshes/base_link.STL 时，VSCode 会根据配置的路径查找包和资源文件。如果没有正确配置，VSCode 就无法找到这些资源文件，导致模型无法显示。
 
-## moveit配置
+## dm_robotarm_config
 编译加载环境
 启动配置助手
 ```
 ros2 launch moveit_setup_assistant setup_assistant.launch.py
+```
+根据配置助手完成配置，生成config文件
+打开joint_limits.yaml文件夹
+修改文件内容
+运行
+```
+ros2 launch dm_robotarm_config demo.launch.py
+```
+即可运行rviz
+
+## gazebo_grasping_sim
+
+### dm_arm.gazebo.friction.urdf.xacro
+这段代码将名为 dm_arm 的机器人模型与 ROS2 和 Gazebo 仿真环境进行集成，配置了机器人控制和物理属性，以便在仿真中进行控制和交互。
+
+### dm_arm.gazebo.ros2_control.xacro
+
+复制src/dm_robotarm_config/config/dm_arm.ros2_control.xacro文件
+修改hardware部分
+```
+<hardware>
+  <!-- By default, set up controllers for simulation. This won't work on real hardware -->
+  <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+</hardware>
+```
+### moveit_cpp.yaml
+为moveit配置多个运动规划管道
+运行gazebo的launch后gazebo中没有机械臂，无法找到stl文件解决方法，修改urdf文件的引用方式
+```
+可能是解析路径的写法上的问题。
+<mesh filename="file://$(find XBot)/meshes/base_link.STL" />这种是ros1的写法，
+<mesh filename="package://XBot/meshes/base_link.STL"/>是ros2推荐的写法，但是gazebo11可能解析不了后一种写法，换成前一种应该就可以了。
+我在使用moveit2配置助手的时候也遇到过这种问题。
 ```
 

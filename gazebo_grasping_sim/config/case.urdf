@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<robot name="five_box_robot">
+    <!-- ===================== 第1个长方体：盒子底面（底座） ===================== -->
+    <link name="base_plate">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <!-- x=长, y=宽, z=厚 单位m | 可直接修改自定义大小 -->
+            <geometry><box size="0.4 0.4 0.05"/></geometry>
+            <material name="gray"><color rgba="0.5 0.5 0.5 1"/></material>
+        </visual>
+        <!-- 碰撞检测：仿真必备 -->
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry><box size="0.4 0.4 0.05"/></geometry>
+        </collision>
+        <!-- ✅ Gazebo必需：惯性参数 核心修复点1 -->
+        <inertial>
+            <mass value="0.5"/>
+            <inertia ixx="0.002" ixy="0.0" ixz="0.0" iyy="0.003" iyz="0.0" izz="0.001"/>
+        </inertial>
+    </link>
+
+    <!-- ===================== 第2个长方体：盒子前壁 ===================== -->
+    <link name="front_wall">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry><box size="0.4 0.05 0.25"/></geometry>
+            <material name="red"><color rgba="1 0 0 1"/></material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry><box size="0.4 0.05 0.25"/></geometry>
+        </collision>
+        <inertial>
+            <mass value="0.3"/>
+            <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.002"/>
+        </inertial>
+    </link>
+    <joint name="base2front" type="fixed">
+        <parent link="base_plate"/>
+        <child link="front_wall"/>
+        <origin xyz="0 0.175 0.15" rpy="0 0 0"/>
+    </joint>
+
+    <!-- ===================== 第3个长方体：盒子后壁 ===================== -->
+    <link name="back_wall">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry><box size="0.4 0.05 0.25"/></geometry>
+            <material name="blue"><color rgba="0 0 1 1"/></material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry><box size="0.4 0.05 0.25"/></geometry>
+        </collision>
+        <inertial>
+            <mass value="0.3"/>
+            <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.002"/>
+        </inertial>
+    </link>
+    <joint name="base2back" type="fixed">
+        <parent link="base_plate"/>
+        <child link="back_wall"/>
+        <origin xyz="0 -0.175 0.15" rpy="0 0 0"/>
+    </joint>
+
+    <!-- ===================== 第4个长方体：盒子左壁 ===================== -->
+    <link name="left_wall">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry><box size="0.05 0.3 0.25"/></geometry>
+            <material name="green"><color rgba="0 1 0 1"/></material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry><box size="0.05 0.3 0.25"/></geometry>
+        </collision>
+        <inertial>
+            <mass value="0.3"/>
+            <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+        </inertial>
+    </link>
+    <joint name="base2left" type="fixed">
+        <parent link="base_plate"/>
+        <child link="left_wall"/>
+        <origin xyz="-0.175 0 0.15" rpy="0 0 0"/>
+    </joint>
+
+    <!-- ===================== 第5个长方体：盒子右壁 ===================== -->
+    <link name="right_wall">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry><box size="0.05 0.3 0.25"/></geometry>
+            <material name="yellow"><color rgba="1 1 0 1"/></material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry><box size="0.05 0.3 0.25"/></geometry>
+        </collision>
+        <inertial>
+            <mass value="0.3"/>
+            <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+        </inertial>
+    </link>
+    <joint name="base2right" type="fixed">
+        <parent link="base_plate"/>
+        <child link="right_wall"/>
+        <origin xyz="0.175 0 0.15" rpy="0 0 0"/>
+    </joint>
+
+    <!-- ✅ Gazebo专属配置：消除摩擦系数警告+设置物理材质，非必需但优化体验 -->
+    <gazebo reference="base_plate">
+        <material>Gazebo/Grey</material>
+        <surface>
+            <friction><ode><mu>0.8</mu><mu2>0.5</mu2></ode></friction>
+        </surface>
+    </gazebo>
+    <gazebo reference="front_wall"><material>Gazebo/Red</material></gazebo>
+    <gazebo reference="back_wall"><material>Gazebo/Blue</material></gazebo>
+    <gazebo reference="left_wall"><material>Gazebo/Green</material></gazebo>
+    <gazebo reference="right_wall"><material>Gazebo/Yellow</material></gazebo>
+
+</robot>
