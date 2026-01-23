@@ -1,0 +1,53 @@
+<mujoco model="dm_arm_scene">
+  <option gravity="0 0 -9.81" timestep="0.001" integrator="RK4"/>
+
+  <visual>
+    <headlight ambient="0.30 0.30 0.30" diffuse="0.60 0.60 0.60" specular="0.20 0.20 0.20"/>
+    <rgba haze="0.15 0.15 0.15 1"/>
+  </visual>
+
+  <asset>
+    <material name="mat_table" rgba="0.75 0.70 0.65 1" shininess="0.10"/>
+    <material name="mat_obj"   rgba="0.20 0.45 0.85 1" shininess="0.30"/>
+  </asset>
+
+  <!-- 关键：顶层 include（不要放 worldbody 里） -->
+  <include file="dm_arm.xml"/>
+
+  <worldbody>
+    <!-- 地面 -->
+    <geom name="floor" type="plane" size="3 3 0.1"
+          rgba="0.92 0.92 0.92 1"
+          contype="1" conaffinity="1"/>
+
+    <!-- 桌面 -->
+    <body name="table" pos="0.60 0 0.35">
+      <geom name="table_top" type="box" size="0.35 0.60 0.03"
+            material="mat_table"
+            contype="1" conaffinity="1"
+            friction="1 0.005 0.0001"/>
+    </body>
+
+    <!-- 可抓取物体 -->
+    <body name="box_object" pos="0.60 0.00 0.42">
+      <freejoint/>
+      <geom name="box_geom" type="box" size="0.03 0.03 0.03"
+            material="mat_obj"
+            density="600"
+            contype="1" conaffinity="1"
+            friction="1 0.01 0.001"
+            solref="0.002 1"
+            solimp="0.9 0.95 0.001"/>
+    </body>
+
+    <!-- 灯光 -->
+    <light name="key"  pos="0 0 1.5"     dir="0 0 -1" diffuse="1 1 1"/>
+    <light name="fill" pos="1.2 1.2 1.2" dir="-1 -1 -1" diffuse="0.5 0.5 0.5"/>
+
+    <!-- 相机：MuJoCo 不支持 lookat，用 pos + quat -->
+    <camera name="main_cam"
+            pos="1.2 -1.0 0.9"
+            quat="0.9239 0 0 0.3827"
+            fovy="45"/>
+  </worldbody>
+</mujoco>

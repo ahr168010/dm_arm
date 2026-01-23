@@ -92,4 +92,4 @@ ros2 launch dm_robotarm_config demo.launch.py
 <mesh filename="package://XBot/meshes/base_link.STL"/>是ros2推荐的写法，但是gazebo11可能解析不了后一种写法，换成前一种应该就可以了。
 我在使用moveit2配置助手的时候也遇到过这种问题。
 ```
-
+## mujoco

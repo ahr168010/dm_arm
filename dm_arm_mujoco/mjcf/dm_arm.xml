@@ -1,0 +1,93 @@
+<mujoco model="dm_arm">
+  <compiler angle="radian" meshdir="../meshes" autolimits="true"/>
+  <option gravity="0 0 -9.81" timestep="0.001" integrator="RK4"/>
+
+  <asset>
+    <mesh name="base_link" file="base_link.STL"/>
+    <mesh name="link1" file="link1.STL"/>
+    <mesh name="link2" file="link2.STL"/>
+    <mesh name="link3" file="link3.STL"/>
+    <mesh name="link4" file="link4.STL"/>
+    <mesh name="link5" file="link5.STL"/>
+    <mesh name="link6" file="link6.STL"/>
+    <mesh name="dm_hand" file="dm_hand.STL"/>
+    <mesh name="dm_left_hand" file="dm_left_hand.STL"/>
+    <mesh name="dm_right_hand" file="dm_right_hand.STL"/>
+  </asset>
+
+  <worldbody>
+    <geom type="plane" size="2 2 0.1" rgba="0.9 0.9 0.9 1"/>
+
+    <body name="base_link" pos="0 0 0.3">
+      <geom type="mesh" mesh="base_link" rgba="0.35 0.35 0.35 1" contype="0" conaffinity="0"/>
+
+      <body name="link1" pos="0 0 0.065" quat="0.5 0.5 0.5 0.5">
+        <joint name="joint1" type="hinge" axis="0 1 0" limited="true" range="-3.14 3.14"
+               damping="2" armature="0.01"/>
+        <geom type="mesh" mesh="link1" rgba="0.35 0.35 0.35 1" contype="0" conaffinity="0"/>
+
+        <body name="link2" pos="0 0.05 0" quat="0.7071067811865462 0 0.7071067811865488 0">
+          <joint name="joint2" type="hinge" axis="1 0 0" limited="true" range="-3.14 3.14"
+                 damping="2" armature="0.01"/>
+          <geom type="mesh" mesh="link2" rgba="0.35 0.35 0.35 1" contype="0" conaffinity="0"/>
+
+          <body name="link3" pos="0 0.3 0" quat="5.26835673519653e-09 0.7071067811865462 5.268356735196549e-09 -0.7071067811865488">
+            <joint name="joint3" type="hinge" axis="0 0 -1" limited="true" range="-3.14 3.14"
+                   damping="1.5" armature="0.008"/>
+            <geom type="mesh" mesh="link3" rgba="0.35 0.35 0.35 1" contype="0" conaffinity="0"/>
+
+            <body name="link4" pos="-0.262 -0.068 0" quat="-3.673205103346574e-06 -0.9999999999932537 0 0">
+              <joint name="joint4" type="hinge" axis="-1 0 0" limited="true" range="-3.14 3.14"
+                     damping="1.0" armature="0.006"/>
+              <geom type="mesh" mesh="link4" rgba="0.35 0.35 0.35 1" contype="0" conaffinity="0"/>
+
+              <body name="link5" pos="0 0 0" quat="-3.673205103346574e-06 0 0 0.9999999999932537">
+                <joint name="joint5" type="hinge" axis="0 0 1" limited="true" range="-3.14 3.14"
+                       damping="0.8" armature="0.005"/>
+                <geom type="mesh" mesh="link5" rgba="0.35 0.35 0.35 1" contype="0" conaffinity="0"/>
+
+                <body name="link6" pos="0.085 0 -0.002" quat="0.7071067811901252 -1.2986741185772033e-06 0.7071067811805847 -1.2986741186327144e-06">
+                  <joint name="joint6" type="hinge" axis="0 0 1" limited="true" range="-3.14 3.14"
+                         damping="0.5" armature="0.004"/>
+                  <geom type="mesh" mesh="link6" rgba="0.35 0.35 0.35 1" contype="0" conaffinity="0"/>
+
+                  <body name="dm_hand" pos="-0.0775 -0.0045 0.02" quat="0.4999981633974483 0.49999999999662686 0.5000018366025516 0.49999999999662686">
+                    <geom type="mesh" mesh="dm_hand" rgba="0.6 0.65 0.75 1" contype="0" conaffinity="0"/>
+
+                    <body name="dm_right_hand" pos="0.0044 -0.0083 0.059139" quat="1.3492435731251315e-11 3.6732051033217936e-06 -0.9999999999865075 -3.6732051033217936e-06">
+                      <joint name="dm_right_joint" type="slide" axis="0 0 1" limited="true" range="0 0.045"
+                             damping="5"/>
+                      <geom type="mesh" mesh="dm_right_hand" rgba="0.35 0.35 0.35 1" contype="0" conaffinity="0"/>
+                    </body>
+
+                    <body name="dm_left_hand" pos="0.0044 -0.0083 0.095861">
+                      <joint name="dm_left_joint" type="slide" axis="0 0 -1" limited="true" range="-0.045 0"
+                             damping="5"/>
+                      <geom type="mesh" mesh="dm_left_hand" rgba="0.35 0.35 0.35 1" contype="0" conaffinity="0"/>
+                    </body>
+
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <equality>
+    <joint joint1="dm_left_joint" joint2="dm_right_joint" polycoef="0 -1 0 0 0"/>
+  </equality>
+
+  <actuator>
+    <position name="j1_pos" joint="joint1" kp="60" kv="10"/>
+    <position name="j2_pos" joint="joint2" kp="60" kv="10"/>
+    <position name="j3_pos" joint="joint3" kp="50" kv="9"/>
+    <position name="j4_pos" joint="joint4" kp="40" kv="8"/>
+    <position name="j5_pos" joint="joint5" kp="30" kv="6"/>
+    <position name="j6_pos" joint="joint6" kp="25" kv="5"/>
+
+    <motor name="gripper_motor" joint="dm_right_joint" gear="20"/>
+  </actuator>
+</mujoco>

@@ -4,7 +4,6 @@
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
 <robot
   name="dm_arm">
-  
   <link
     name="base_link">
     <inertial>
@@ -27,10 +26,13 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find dm_robotarm_description)/meshes/base_link.STL" />
+          filename="package://dm_robotarm_description/meshes/base_link.STL" />
       </geometry>
       <material
-        name=""/>
+        name="">
+        <color
+          rgba="0.35 0.35 0.35 1.0"/>
+      </material>
     </visual>
     <collision>
       <origin
@@ -38,11 +40,10 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find dm_robotarm_description)/meshes/base_link.STL" />
+          filename="package://dm_robotarm_description/meshes/base_link.STL" />
       </geometry>
     </collision>
   </link>
-
   <link
     name="link1">
     <inertial>
@@ -65,10 +66,13 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find dm_robotarm_description)/meshes/link1.STL" />
+          filename="package://dm_robotarm_description/meshes/link1.STL" />
       </geometry>
       <material
-        name=""/>
+        name="">
+        <color
+          rgba="0.35 0.35 0.35 1.0"/>
+      </material>
     </visual>
     <collision>
       <origin
@@ -76,11 +80,10 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find dm_robotarm_description)/meshes/link1.STL" />
+          filename="package://dm_robotarm_description/meshes/link1.STL" />
       </geometry>
     </collision>
   </link>
-
   <joint
     name="joint1"
     type="revolute">
@@ -99,7 +102,6 @@
       effort="100"
       velocity="1" />
   </joint>
-
   <link
     name="link2">
     <inertial>
@@ -122,10 +124,13 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find dm_robotarm_description)/meshes/link2.STL" />
+          filename="package://dm_robotarm_description/meshes/link2.STL" />
       </geometry>
       <material
-        name=""/>
+        name="">
+        <color
+          rgba="0.35 0.35 0.35 1.0"/>
+      </material>
     </visual>
     <collision>
       <origin
@@ -133,11 +138,10 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find dm_robotarm_description)/meshes/link2.STL" />
+          filename="package://dm_robotarm_description/meshes/link2.STL" />
       </geometry>
     </collision>
   </link>
-
   <joint
     name="joint2"
     type="revolute">
@@ -156,7 +160,6 @@
       effort="100"
       velocity="1" />
   </joint>
-
   <link
     name="link3">
     <inertial>
@@ -179,10 +182,13 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find dm_robotarm_description)/meshes/link3.STL" />
+          filename="package://dm_robotarm_description/meshes/link3.STL" />
       </geometry>
       <material
-        name=""/>
+        name="">
+        <color
+          rgba="0.35 0.35 0.35 1.0"/>
+      </material>
     </visual>
     <collision>
       <origin
@@ -190,11 +196,10 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find dm_robotarm_description)/meshes/link3.STL" />
+          filename="package://dm_robotarm_description/meshes/link3.STL" />
       </geometry>
     </collision>
   </link>
-
   <joint
     name="joint3"
     type="revolute">
@@ -213,7 +218,6 @@
       effort="100"
       velocity="1" />
   </joint>
-
   <link
     name="link4">
     <inertial>
@@ -236,10 +240,13 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find dm_robotarm_description)/meshes/link4.STL" />
+          filename="package://dm_robotarm_description/meshes/link4.STL" />
       </geometry>
       <material
-        name=""/>
+        name="">
+        <color
+          rgba="0.35 0.35 0.35 1.0"/>
+      </material>
     </visual>
     <collision>
       <origin
@@ -247,11 +254,10 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find dm_robotarm_description)/meshes/link4.STL" />
+          filename="package://dm_robotarm_description/meshes/link4.STL" />
       </geometry>
     </collision>
   </link>
-
   <joint
     name="joint4"
     type="revolute">
@@ -270,7 +276,6 @@
       effort="100"
       velocity="1" />
   </joint>
-
   <link
     name="link5">
     <inertial>
@@ -293,10 +298,13 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find dm_robotarm_description)/meshes/link5.STL" />
+          filename="package://dm_robotarm_description/meshes/link5.STL" />
       </geometry>
       <material
-        name=""/>
+        name="">
+        <color
+          rgba="0.35 0.35 0.35 1.0"/>
+      </material>
     </visual>
     <collision>
       <origin
@@ -304,11 +312,10 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find dm_robotarm_description)/meshes/link5.STL" />
+          filename="package://dm_robotarm_description/meshes/link5.STL" />
       </geometry>
     </collision>
   </link>
-
   <joint
     name="joint5"
     type="revolute">
@@ -327,7 +334,6 @@
       effort="100"
       velocity="1" />
   </joint>
-
   <link
     name="link6">
     <inertial>
@@ -350,10 +356,13 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find dm_robotarm_description)/meshes/link6.STL" />
+          filename="package://dm_robotarm_description/meshes/link6.STL" />
       </geometry>
       <material
-        name=""/>
+        name="">
+        <color
+          rgba="0.35 0.35 0.35 1.0"/>
+      </material>
     </visual>
     <collision>
       <origin
@@ -361,11 +370,10 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find dm_robotarm_description)/meshes/link6.STL" />
+          filename="package://dm_robotarm_description/meshes/link6.STL" />
       </geometry>
     </collision>
   </link>
-
   <joint
     name="joint6"
     type="revolute">
@@ -384,7 +392,6 @@
       effort="100"
       velocity="1" />
   </joint>
-
   <link
     name="dm_hand">
     <inertial>
@@ -407,10 +414,13 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find dm_robotarm_description)/meshes/dm_hand.STL" />
+          filename="package://dm_robotarm_description/meshes/dm_hand.STL" />
       </geometry>
       <material
-        name=""/>
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
     </visual>
     <collision>
       <origin
@@ -418,11 +428,10 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find dm_robotarm_description)/meshes/dm_hand.STL" />
+          filename="package://dm_robotarm_description/meshes/dm_hand.STL" />
       </geometry>
     </collision>
   </link>
-
   <joint
     name="dm_hand link"
     type="fixed">
@@ -436,7 +445,6 @@
     <axis
       xyz="0 0 0" />
   </joint>
-
   <link
     name="dm_right_hand">
     <inertial>
@@ -459,10 +467,13 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find dm_robotarm_description)/meshes/dm_right_hand.STL" />
+          filename="package://dm_robotarm_description/meshes/dm_right_hand.STL" />
       </geometry>
       <material
-        name=""/>
+        name="">
+        <color
+          rgba="0.35 0.35 0.35 1.0"/>
+      </material>
     </visual>
     <collision>
       <origin
@@ -470,11 +481,10 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find dm_robotarm_description)/meshes/dm_right_hand.STL" />
+          filename="package://dm_robotarm_description/meshes/dm_right_hand.STL" />
       </geometry>
     </collision>
   </link>
-
   <joint
     name="dm_right_joint"
     type="prismatic">
@@ -493,7 +503,6 @@
       effort="10"
       velocity="0.02" />
   </joint>
-
   <link
     name="dm_left_hand">
     <inertial>
@@ -516,10 +525,13 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find dm_robotarm_description)/meshes/dm_left_hand.STL" />
+          filename="package://dm_robotarm_description/meshes/dm_left_hand.STL" />
       </geometry>
       <material
-        name=""/>
+        name="">
+        <color
+          rgba="0.35 0.35 0.35 1.0"/>
+      </material>
     </visual>
     <collision>
       <origin
@@ -527,11 +539,10 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find dm_robotarm_description)/meshes/dm_left_hand.STL" />
+          filename="package://dm_robotarm_description/meshes/dm_left_hand.STL" />
       </geometry>
     </collision>
   </link>
-
   <joint
     name="dm_left_joint"
     type="prismatic">
@@ -554,5 +565,4 @@
       multiplier="-1"
       offset="0" />
   </joint>
-
 </robot>
