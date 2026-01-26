@@ -1,37 +1,29 @@
 <mujoco model="dm_arm_scene">
-  <!-- 机器人模型：保持顶层 include（不要放 worldbody 里） -->
   <include file="dm_arm.xml"/>
 
-  <!-- 默认取景：类似 z1 的 statistic 风格 -->
   <statistic center="0.15 0.25 0.35" extent="1.2"/>
 
-  <!-- 视觉：统一为 z1 风格（更干净、更利于演示/录制） -->
   <visual>
     <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
     <rgba haze="0.12 0.18 0.25 1"/>
     <global azimuth="120" elevation="-20"/>
   </visual>
 
-  <!-- 资产：skybox + 地面棋盘格 + 桌面/物体材质 -->
   <asset>
-    <!-- 天空 -->
     <texture type="skybox" builtin="gradient"
              rgb1="0.28 0.45 0.65" rgb2="0.02 0.02 0.03"
              width="512" height="3072"/>
 
-    <!-- 棋盘格地面（注意：真正的 floor plane 目前在 dm_arm.xml 里，这里只定义材质） -->
     <texture type="2d" name="groundplane" builtin="checker" mark="edge"
              rgb1="0.18 0.28 0.40" rgb2="0.10 0.18 0.28"
              markrgb="0.8 0.8 0.8" width="300" height="300"/>
     <material name="groundplane" texture="groundplane"
               texuniform="true" texrepeat="6 6" reflectance="0.15"/>
 
-    <!-- 桌面与物体材质 -->
     <material name="mat_table" rgba="0.72 0.68 0.62 1" shininess="0.10" reflectance="0.05"/>
     <material name="mat_obj"   rgba="0.20 0.45 0.85 1" shininess="0.25" reflectance="0.10"/>
   </asset>
 
-  <!-- 默认参数：减少你后面添加物体时的重复 -->
   <default>
     <geom contype="1" conaffinity="1"
           friction="1 0.01 0.001"
@@ -40,7 +32,6 @@
   </default>
 
   <worldbody>
-    <!-- 光照：一个主光 + 补光 + 轮廓光（比你原来更稳定更立体） -->
     <light name="key"  pos="0.2 -0.2 1.6" dir="-0.1 0.2 -1" directional="true" diffuse="1 1 1"/>
     <light name="fill" pos="1.2  1.2 1.2" dir="-1 -1 -1"     directional="true" diffuse="0.4 0.4 0.4"/>
     <light name="rim"  pos="-1.2 0.8 1.2" dir="1 -0.6 -1"    directional="true" diffuse="0.25 0.25 0.25"/>
@@ -50,12 +41,26 @@
           contype="1" conaffinity="1"/>
 
     <!-- 桌面 -->
-    <body name="table" pos="0.10 0.30 0.27">
+    <body name="table" pos="0.00 0.30 0.27">
       <geom name="table_top" type="box" size="0.60 0.35 0.03"
             material="mat_table"/>
+      
+      <!-- 桌腿（四个柱体） -->
+      <body name="table_leg1" pos="-0.30 0.17 -0.135">
+        <geom type="cylinder" size="0.03 0.135" material="mat_table"/>
+      </body>
+      <body name="table_leg2" pos="0.30 0.17 -0.135">
+        <geom type="cylinder" size="0.03 0.135" material="mat_table"/>
+      </body>
+      <body name="table_leg3" pos="-0.30 -0.17 -0.135">
+        <geom type="cylinder" size="0.03 0.135" material="mat_table"/>
+      </body>
+      <body name="table_leg4" pos="0.30 -0.17 -0.135">
+        <geom type="cylinder" size="0.03 0.135" material="mat_table"/>
+      </body>
     </body>
 
-    <!-- 可抓取物体：建议高度略高于桌面，避免初始穿透 -->
+    <!-- 可抓取物体 -->
     <body name="box_object" pos="0.00 0.40 0.42">
       <freejoint/>
       <geom name="box_geom" type="box" size="0.03 0.03 0.03"
@@ -63,12 +68,11 @@
             density="600"/>
     </body>
 
-    <!-- 相机：main 用于观察/录屏，top 用于模仿学习数据采集（俯视更稳定） -->
+    <!-- 相机 -->
     <camera name="main_cam"
             pos="1.25 -1.05 0.95"
             quat="0.9239 0 0 0.3827"
             fovy="45"/>
-
     <camera name="top_cam"
             pos="0.20 0.35 1.60"
             quat="0.7071 0.7071 0 0"

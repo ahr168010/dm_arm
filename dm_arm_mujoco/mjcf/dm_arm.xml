@@ -45,21 +45,21 @@
   <worldbody>
 
     <!-- Base -->
-    <body name="base_link" pos="0 0 0.3">
+    <body name="base_link" pos="0.0 0 0.3" quat="0 0 0 -1" >
       <inertial pos="0 0 0" mass="2.5" diaginertia="0.020 0.020 0.020"/>
 
       <geom class="visual_mesh"   mesh="base_link" rgba="0.35 0.35 0.35 1"/>
       <geom class="collision_mesh" name="col_base_link" mesh="base_link"/>
 
       <!-- Link1 -->
-      <body name="link1" pos="0 0 0.065" quat="0.5 0.5 0.5 0.5">
+      <body name="link1" pos="0 0 0.065" quat="0.5 0.5 -0.5 -0.5">
         <inertial pos="0 0 0" mass="1.2" diaginertia="0.010 0.010 0.010"/>
 
         <joint class="arm_hinge" name="joint1" axis="0 1 0"
                damping="2" armature="0.01"/>
 
         <geom class="visual_mesh"    mesh="link1" rgba="0.35 0.35 0.35 1"/>
-        <geom class="collision_mesh" name="col_link1" mesh="link1"/>
+        <!-- <geom class="collision_mesh" name="col_link1" mesh="link1"/> -->
 
         <!-- Link2 -->
         <body name="link2" pos="0 0.05 0" quat="0.7071067811865462 0 0.7071067811865488 0">
@@ -165,7 +165,7 @@
 
   <actuator>
     <!-- Arm joints: position actuators (PD-like) -->
-    <position name="j1_pos" joint="joint1" kp="600" kv="50" forcerange="-300 300"/>
+    <position name="j1_pos" joint="joint1" kp="600"  kv="50"/>
     <position name="j2_pos" joint="joint2" kp="60"  kv="10"/>
     <position name="j3_pos" joint="joint3" kp="50"  kv="9"/>
     <position name="j4_pos" joint="joint4" kp="40"  kv="8"/>
@@ -175,4 +175,4 @@
     <!-- Gripper: motor drives dm_right_joint; dm_left_joint follows via equality -->
     <motor name="gripper_motor" joint="dm_right_joint" gear="20"/>
   </actuator>
-</mujoco>
+</mujoco> 
