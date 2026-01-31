@@ -8,7 +8,7 @@
   <compiler angle="radian" meshdir="../meshes" autolimits="true"/>
 
   <!-- Simulation settings -->
-  <option gravity="0 0 -9.81" timestep="0.001" integrator="RK4"/>
+  <option gravity="0 0 -9.81" timestep="0.002" integrator="RK4"/>
 
   <!-- Common defaults to reduce repetition -->
   <default>
@@ -163,16 +163,29 @@
     <joint joint1="dm_left_joint" joint2="dm_right_joint" polycoef="0 -1 0 0 0"/>
   </equality>
 
-  <actuator>
+<actuator>
     <!-- Arm joints: position actuators (PD-like) -->
-    <position name="j1_pos" joint="joint1" kp="600"  kv="50"/>
-    <position name="j2_pos" joint="joint2" kp="60"  kv="10"/>
-    <position name="j3_pos" joint="joint3" kp="50"  kv="9"/>
-    <position name="j4_pos" joint="joint4" kp="40"  kv="8"/>
-    <position name="j5_pos" joint="joint5" kp="30"  kv="6"/>
-    <position name="j6_pos" joint="joint6" kp="25"  kv="5"/>
+    <position name="j1_pos" joint="joint1" kp="40" kv="8"
+              ctrllimited="true" ctrlrange="-3.14 3.14"/>
+    <position name="j2_pos" joint="joint2" kp="40"  kv="8"
+              ctrllimited="true" ctrlrange="-1.57 1.57"/>
+    <position name="j3_pos" joint="joint3" kp="40"  kv="8"
+              ctrllimited="true" ctrlrange="-1.57 1.57"/>
+    <position name="j4_pos" joint="joint4" kp="20"  kv="5"
+              ctrllimited="true" ctrlrange="-3.14 3.14"/>
+    <position name="j5_pos" joint="joint5" kp="20"  kv="5"
+              ctrllimited="true" ctrlrange="-1.57 1.57"/>
+    <position name="j6_pos" joint="joint6" kp="20"  kv="5"
+              ctrllimited="true" ctrlrange="-3.14 3.14"/>
 
-    <!-- Gripper: motor drives dm_right_joint; dm_left_joint follows via equality -->
-    <motor name="gripper_motor" joint="dm_right_joint" gear="20"/>
-  </actuator>
+    <!-- 优化后的夹爪位置控制 -->
+    <position name="gripper_pos" joint="dm_right_joint" kp="20" kv="5"
+              ctrllimited="true" ctrlrange="0 0.045"/> <!-- 更新为合适的最大开合范围 -->
+</actuator>
+
+<!-- 夹爪通过 `equality` 约束联动，保持对称运动 -->
+<equality>
+  <joint joint1="dm_left_joint" joint2="dm_right_joint" polycoef="0 -1 0 0 0"/>
+</equality>
+
 </mujoco> 

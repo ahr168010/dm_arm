@@ -24,6 +24,9 @@ setup(
     },
     entry_points={
         'console_scripts': [
+            "mujoco_show=dm_arm_mujoco.mujoco_show:main",
+            "read_moveit_plan=dm_arm_mujoco.read_moveit_plan:main",
+            "moveit_mujoco_fjt_server=dm_arm_mujoco.moveit_mujoco_fjt_server:main",
         ],
     },
 )
