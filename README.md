@@ -1,3 +1,8 @@
+cd ~/dm_robot_ws/src
+git add .
+git commit -m "update"
+git push
+
 # 使用conda环境运行ros2+mujoco
 ros2 jazzy使用python版本为python3.12
 参考教程：
